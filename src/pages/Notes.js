@@ -3,12 +3,13 @@ import Container from "@material-ui/core/Container";
 import Masonry from "react-masonry-css";
 import NoteCard from "../components/NoteCard";
 
+import data from "../data/db";
+
 export default function Notes() {
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
-    //res.json()
-    // setNotes(data))
+    setNotes(data.notes);
   }, []);
 
   const handleDelete = async (id) => {
