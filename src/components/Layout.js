@@ -1,29 +1,29 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core'
-import Drawer from '@material-ui/core/Drawer'
-import Typography from '@material-ui/core/Typography'
-import { useHistory, useLocation } from 'react-router-dom'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import { AddCircleOutlineOutlined, SubjectOutlined } from '@material-ui/icons'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import { format } from 'date-fns'
-import Avatar from '@material-ui/core/Avatar'
+import React from "react";
+import { makeStyles } from "@material-ui/core";
+import Drawer from "@material-ui/core/Drawer";
+import Typography from "@material-ui/core/Typography";
+import { useHistory, useLocation } from "react-router-dom";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import { AddCircleOutlineOutlined, SubjectOutlined } from "@material-ui/icons";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import { format } from "date-fns";
+import Avatar from "@material-ui/core/Avatar";
 
-const drawerWidth = 240
+const drawerWidth = 180;
 
 const useStyles = makeStyles((theme) => {
   return {
     page: {
-      background: '#f9f9f9',
-      width: '100%',
+      background: "#f9f9f9",
+      width: "100%",
       padding: theme.spacing(3),
     },
     root: {
-      display: 'flex',
+      display: "flex",
     },
     drawer: {
       width: drawerWidth,
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => {
       width: drawerWidth,
     },
     active: {
-      background: '#f4f4f4'
+      background: "#f4f4f4",
     },
     title: {
       padding: theme.spacing(2),
@@ -42,45 +42,53 @@ const useStyles = makeStyles((theme) => {
       marginLeft: drawerWidth,
     },
     date: {
-      flexGrow: 1
+      flexGrow: 1,
     },
     toolbar: theme.mixins.toolbar,
     avatar: {
-      marginLeft: theme.spacing(2)
-    }
-  }
-})
+      marginLeft: theme.spacing(2),
+    },
+  };
+});
 
 export default function Layout({ children }) {
-  const classes = useStyles()
-  const history = useHistory()
-  const location = useLocation()
+  {
+    /* the props children is all the comps from app.js under the switch */
+  }
+  const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
 
   const menuItems = [
-    { 
-      text: 'My Notes', 
-      icon: <SubjectOutlined color="secondary" />, 
-      path: '/' 
+    {
+      text: "My Notes",
+      icon: <SubjectOutlined color="secondary" />,
+      path: "/",
     },
-    { 
-      text: 'Create Note', 
-      icon: <AddCircleOutlineOutlined color="secondary" />, 
-      path: '/create' 
+    {
+      text: "Create Note",
+      icon: <AddCircleOutlineOutlined color="secondary" />,
+      path: "/create",
+    },
+    {
+      text: "Create Note3",
+      icon: <AddCircleOutlineOutlined color="secondary" />,
+      path: "/",
     },
   ];
 
   return (
     <div className={classes.root}>
       {/* app bar */}
-      <AppBar 
-        position="fixed" 
+      <AppBar
+        position="fixed"
         className={classes.appBar}
         elevation={0}
         color="primary"
       >
         <Toolbar>
           <Typography className={classes.date}>
-            Today is the {format(new Date(), 'do MMMM Y')}
+            Today is the {format(new Date(), "do MMMM Y")}
           </Typography>
           <Typography>Mario</Typography>
           <Avatar className={classes.avatar} src="/mario-av.png" />
@@ -103,25 +111,27 @@ export default function Layout({ children }) {
         {/* links/list section */}
         <List>
           {menuItems.map((item) => (
-            <ListItem 
-              button 
-              key={item.text} 
+            <ListItem
+              button
+              key={item.text}
               onClick={() => history.push(item.path)}
               className={location.pathname == item.path ? classes.active : null}
+              //  to make the btns hover
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>
           ))}
         </List>
-        
       </Drawer>
 
       {/* main content */}
       <div className={classes.page}>
-        <div className={classes.toolbar}></div>
-        { children }
+        <div className={classes.toolbar}>
+          {/* to make some space under the toolbar|navBar */}
+        </div>
+        {children}
       </div>
     </div>
-  )
+  );
 }
